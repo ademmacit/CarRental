@@ -61,5 +61,10 @@ namespace Business.Concrete
             else
                 throw new ArgumentException("Daily price is lower than 0");
         }
+
+        public Car GetById(int id)
+        {
+            return _ICarDal.Get(p => p.Id == id);
+        }
     }
 }
