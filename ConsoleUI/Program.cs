@@ -83,32 +83,32 @@ namespace ConsoleUI
 
         private static void BrandCrudTest(BrandManager brandManager)
         {
-            brandManager.Add(new Brand() { Id = 1, Name = "Honda" });
-            brandManager.Add(new Brand() { Id = 2, Name = "Mercedes" });
-            brandManager.Add(new Brand() { Id = 3, Name = "Mitsubushi" });
-            brandManager.Add(new Brand() { Id = 4, Name = "Fiat" });
-            brandManager.Add(new Brand() { Id = 5, Name = "Tesla" });
-            brandManager.Delete(brandManager.GetById(5).Data);
+            brandManager.Add(new Brand() {  Name = "Honda" });
+            brandManager.Add(new Brand() {  Name = "Mercedes" });
+            brandManager.Add(new Brand() {  Name = "Mitsubushi" });
+            brandManager.Add(new Brand() {  Name = "Fiat" });
+            brandManager.Add(new Brand() {  Name = "Tesla" });
+            //brandManager.Delete(brandManager.GetById(5).Data);
 
 
-            Brand UpdatedBrand = brandManager.GetById(1).Data;
-            UpdatedBrand.Name = "Hyundai";
-            brandManager.Update(UpdatedBrand);
+            //Brand UpdatedBrand = brandManager.GetById(1).Data;
+            //UpdatedBrand.Name = "Hyundai";
+            //brandManager.Update(UpdatedBrand);
         }
 
         private static void ColorCrudTest(ColorManager colorManager)
         {
-            colorManager.Add(new Color() { Id = 1, Name = "Black" });
-            colorManager.Add(new Color() { Id = 2, Name = "Red" });
-            colorManager.Add(new Color() { Id = 3, Name = "White" });
-            colorManager.Add(new Color() { Id = 4, Name = "Blue" });
-            colorManager.Add(new Color() { Id = 5, Name = "Yellow" });
-            colorManager.Delete(colorManager.GetById(5).Data);
+            colorManager.Add(new Color() {  Name = "Black" });
+            colorManager.Add(new Color() {  Name = "Red" });
+            colorManager.Add(new Color() {  Name = "White" });
+            colorManager.Add(new Color() {  Name = "Blue" });
+            colorManager.Add(new Color() {  Name = "Yellow" });
+            //colorManager.Delete(colorManager.GetById(5).Data);
 
 
-            Color UpdatedColor = colorManager.GetById(1).Data;
-            UpdatedColor.Name = "Green";
-            colorManager.Update(UpdatedColor);
+            //Color UpdatedColor = colorManager.GetById(1).Data;
+            //UpdatedColor.Name = "Green";
+            //colorManager.Update(UpdatedColor);
         }
 
         private static void CarCrudTest(CarManager carManager)
@@ -116,17 +116,40 @@ namespace ConsoleUI
             
             carManager.Add(new Car()
             {
-                Id = 4,
-                BrandId = 2,
-                ColorId = 3,
+                BrandId = 1,
+                ColorId = 1,
                 DailyPrice = 1250,
-                Description = "Car 4",
+                Description = "Car 1",
                 ModelYear = "1997"
             });
-            carManager.Delete(carManager.GetById(3).Data);
-            Car UpdatedCar = carManager.GetById(1).Data;
-            UpdatedCar.Description = "Updated Car 1";
-            carManager.Update(UpdatedCar);
+            carManager.Add(new Car()
+            {
+                BrandId = 1,
+                ColorId = 2,
+                DailyPrice = 1250,
+                Description = "Car 2",
+                ModelYear = "2000"
+            });
+            carManager.Add(new Car()
+            {
+                BrandId = 2,
+                ColorId = 2,
+                DailyPrice = 1250,
+                Description = "Car 3",
+                ModelYear = "2007"
+            });
+            carManager.Add(new Car()
+            {
+                BrandId = 3,
+                ColorId = 1,
+                DailyPrice = 1250,
+                Description = "Car 4",
+                ModelYear = "2010"
+            });
+            //carManager.Delete(carManager.GetById(3).Data);
+            //Car UpdatedCar = carManager.GetById(1).Data;
+            //UpdatedCar.Description = "Updated Car 1";
+            //carManager.Update(UpdatedCar);
         }
     }
 }
