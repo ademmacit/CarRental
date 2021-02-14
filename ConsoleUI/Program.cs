@@ -62,19 +62,19 @@ namespace ConsoleUI
         private static void DisplayTables(CarManager carManager, ColorManager colorManager, BrandManager brandManager)
         {
             Console.WriteLine("-- CARS --");
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetAll().Data)
                 Console.WriteLine("{0} - {1} ", car.Id, car.Description);
 
             Console.WriteLine("-- COLORS --");
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
                 Console.WriteLine("{0} - {1} ", color.Id, color.Name);
 
             Console.WriteLine("-- BRANDS --");
-            foreach (var brand in brandManager.GetAll())
+            foreach (var brand in brandManager.GetAll().Data)
                 Console.WriteLine("{0} - {1} ", brand.Id, brand.Name);
 
             Console.WriteLine("-- CAR DETAILS --");
-            foreach (var carDetail in carManager.GetCarDetails())
+            foreach (var carDetail in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine("{0} - {1} - {2} - {3}",
                     carDetail.CarName, carDetail.BrandName, carDetail.ColorName, carDetail.DailyPrice);
@@ -88,10 +88,10 @@ namespace ConsoleUI
             brandManager.Add(new Brand() { Id = 3, Name = "Mitsubushi" });
             brandManager.Add(new Brand() { Id = 4, Name = "Fiat" });
             brandManager.Add(new Brand() { Id = 5, Name = "Tesla" });
-            brandManager.Delete(brandManager.GetById(5));
+            brandManager.Delete(brandManager.GetById(5).Data);
 
 
-            Brand UpdatedBrand = brandManager.GetById(1);
+            Brand UpdatedBrand = brandManager.GetById(1).Data;
             UpdatedBrand.Name = "Hyundai";
             brandManager.Update(UpdatedBrand);
         }
@@ -103,10 +103,10 @@ namespace ConsoleUI
             colorManager.Add(new Color() { Id = 3, Name = "White" });
             colorManager.Add(new Color() { Id = 4, Name = "Blue" });
             colorManager.Add(new Color() { Id = 5, Name = "Yellow" });
-            colorManager.Delete(colorManager.GetById(5));
+            colorManager.Delete(colorManager.GetById(5).Data);
 
 
-            Color UpdatedColor = colorManager.GetById(1);
+            Color UpdatedColor = colorManager.GetById(1).Data;
             UpdatedColor.Name = "Green";
             colorManager.Update(UpdatedColor);
         }
@@ -123,8 +123,8 @@ namespace ConsoleUI
                 Description = "Car 4",
                 ModelYear = "1997"
             });
-            carManager.Delete(carManager.GetById(3));
-            Car UpdatedCar = carManager.GetById(1);
+            carManager.Delete(carManager.GetById(3).Data);
+            Car UpdatedCar = carManager.GetById(1).Data;
             UpdatedCar.Description = "Updated Car 1";
             carManager.Update(UpdatedCar);
         }

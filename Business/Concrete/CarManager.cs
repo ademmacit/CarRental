@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -17,60 +18,72 @@ namespace Business.Concrete
             _ICarDal = ıCarDal;
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _ICarDal.GetAll();
+            return new SuccessDataResult<List<Car>>
+                (_ICarDal.GetAll());
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return _ICarDal.GetAll(p => p.BrandId == id);
+            return new SuccessDataResult<List<Car>>
+                (_ICarDal.GetAll(p => p.BrandId == id));
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            return _ICarDal.GetAll(p => p.ColorId== id);
+            return new SuccessDataResult<List<Car>>
+                (_ICarDal.GetAll(p => p.ColorId== id));
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.DailyPrice > 0)
             {
                 if (car.Description.Length > 2)
+                {
                     _ICarDal.Add(car);
+                    return new SuccessResult();
+                }
                 else
-                    throw new ArgumentException("Description length is shorter than 2");
+                    return new ErrorResult("Description length is shorter than 2");
             }
             else
-                throw new ArgumentException("Daily price is lower than 0");
+                return new ErrorResult("Daily price is lower than 0");
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _ICarDal.Delete(car);
+            return new SuccessResult();
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             if (car.DailyPrice > 0)
             {
                 if (car.Description.Length > 2)
+                {
                     _ICarDal.Update(car);
+                    return new SuccessResult();
+                }
                 else
-                    throw new ArgumentException("Description length is shorter than 2");
+                    return new ErrorResult("Description length is shorter than 2");
             }
             else
-                throw new ArgumentException("Daily price is lower than 0");
+                return new ErrorResult("Daily price is lower than 0");
         }
 
-        public Car GetById(int id)
+        public IDataResult<Car> GetById(int id)
         {
-            return _ICarDal.Get(p => p.Id == id);
+            return new SuccessDataResult<Car>
+                (_ICarDal.Get(p => p.Id == id));
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return _ICarDal.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailDto>>
+                (_ICarDal.GetCarDetails());
         }
     }
 }
