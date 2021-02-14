@@ -47,16 +47,104 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfCarDal());
-            ColorManager colorManager = new ColorManager(new EfColorDal());
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            //CarManager carManager = new CarManager(new EfCarDal());
+            //ColorManager colorManager = new ColorManager(new EfColorDal());
+            //BrandManager brandManager = new BrandManager(new EfBrandDal());
+            //UserManager userManager = new UserManager(new EfUserDal());
+            //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            //RentalManager rentalManager = new RentalManager(new EfRentalDal());
 
+
+            //RentalCrud(rentalManager);
+            //UserCrud(userManager);
+            //CustomerCrud(customerManager);
             //BrandCrudTest(brandManager);
             //ColorCrudTest(colorManager);
             //CarCrudTest(carManager);
 
-            DisplayTables(carManager, colorManager, brandManager);
+            //DisplayTables(carManager, colorManager, brandManager);
+        }
 
+        private static void RentalCrud(RentalManager rentalManager)
+        {
+            rentalManager.Add(new Rental()
+            {
+                CarId = 1,
+                CustomerId = 1,
+                RentDate = new DateTime(2020, 12, 30),
+                ReturnDate = null
+            });
+            rentalManager.Add(new Rental()
+            {
+                CarId = 2,
+                CustomerId = 2,
+                RentDate = new DateTime(2019, 05, 01),
+                ReturnDate = new DateTime(2019, 07, 11)
+            });
+            rentalManager.Add(new Rental()
+            {
+                CarId = 3,
+                CustomerId = 1,
+                RentDate = new DateTime(2020, 02, 22),
+                ReturnDate = new DateTime(2021, 01, 01)
+            });
+
+            //trying to rent a car that is already rented
+            Console.WriteLine(rentalManager.Add(new Rental()
+            {
+                CarId = 1,
+                CustomerId = 1,
+                RentDate = new DateTime(2020, 02, 22),
+                ReturnDate = new DateTime(2021, 01, 01)
+            }).Message);
+
+
+            foreach (var rental in rentalManager.GetAll().Data)
+                Console.WriteLine("{0} - {1} ", rental.CarId, rental.ReturnDate);
+        }
+
+        private static void CustomerCrud(CustomerManager customerManager)
+        {
+            customerManager.Add(new Customer()
+            {
+                UserId = 1,
+                CompanyName = "adems company"
+            });
+            customerManager.Add(new Customer()
+            {
+                UserId = 2,
+                CompanyName = "Emres company"
+            });
+            customerManager.Add(new Customer()
+            {
+                UserId = 3,
+                CompanyName = "Alis company"
+            });
+        }
+
+        private static void UserCrud(UserManager userManager)
+        {
+            userManager.Add(new User()
+            {
+                Email = "user1@hotmail.com",
+                FirstName = "adem",
+                LastName = "macit",
+                Password = "pass1"
+            });
+            userManager.Add(new User()
+            {
+                Email = "user2@Gmail.com",
+                FirstName = "emre",
+                LastName = "begit",
+                Password = "pass2"
+            });
+            userManager.Add(new User()
+            {
+                Email = "user3@Gmail.com",
+                FirstName = "ali",
+                LastName = "çalışkan",
+                Password = "pass3"
+            });
         }
 
         private static void DisplayTables(CarManager carManager, ColorManager colorManager, BrandManager brandManager)

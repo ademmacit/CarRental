@@ -19,8 +19,17 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            _IRentalDal.Add(rental);
-            return new SuccessResult();
+            //if there is any rental entry for the car we want that is not returned
+            if (_IRentalDal.GetAll
+                (r=>r.CarId == rental.CarId && r.ReturnDate==null).Count>0)
+            {
+                return new ErrorResult("the car you are looking for is already rented");
+            }
+            else
+            {
+                _IRentalDal.Add(rental);
+                return new SuccessResult();
+            }
 
         }
 
@@ -29,6 +38,16 @@ namespace Business.Concrete
             _IRentalDal.Delete(rental);
             return new SuccessResult();
         }
+
+        public IResult DeleteAll()
+        {
+            foreach (var rental in GetAll().Data)
+            {
+                Delete(rental);
+            }
+            return new SuccessResult();
+        }
+
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>
