@@ -11,9 +11,9 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BrandsController : ControllerCrudBase<Brand, IBrandService>
+    public class RentalsController : ControllerCrudBase<Rental, IRentalService>
     {
-        public BrandsController(IBrandService service) : base(service)
+        public RentalsController(IRentalService service) : base(service)
         {
         }
     }

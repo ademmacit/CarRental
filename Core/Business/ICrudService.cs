@@ -8,9 +8,9 @@ namespace Core.Business
     public interface ICrudService<T>
     {
         IDataResult<List<T>> GetAll();
-        IResult Add(T brand);
-        IResult Delete(T brand);
-        IResult Update(T brand);
+        IResult Add(T item);
+        IResult Delete(T item);
+        IResult Update(T item);
         IDataResult<T> GetById(int id);
     }
 }
