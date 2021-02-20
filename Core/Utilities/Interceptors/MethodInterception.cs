@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.DynamicProxy;
+using System;
 
 namespace Core.Utilities.Interceptors
 {
