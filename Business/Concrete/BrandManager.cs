@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.AutoFac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -17,7 +19,7 @@ namespace Business.Concrete
             _IBrandDal = ıBrandDal;
         }
 
-
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
             _IBrandDal.Add(brand);
@@ -44,6 +46,8 @@ namespace Business.Concrete
                 (_IBrandDal.Get(p=>p.Id == id));
 
         }
+
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
             _IBrandDal.Update(brand);

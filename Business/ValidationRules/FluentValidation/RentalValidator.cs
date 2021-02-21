@@ -6,13 +6,12 @@ using System.Text;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class BrandValidator : AbstractValidator<Brand>
+    public class RentalValidator : AbstractValidator<Rental>
     {
-        public BrandValidator()
+        public RentalValidator()
         {
-            RuleFor(b => b.Name).MinimumLength(3);
-            RuleFor(b => b.Name).NotEmpty();
-
+            RuleFor(r => r.CarId).NotEmpty();
+            RuleFor(r => r.CustomerId).NotEmpty();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("add")]
+        [HttpPost("add")]
         public IActionResult Add(TEntity item)
         {
             var result = _Service.Add(item);
@@ -46,7 +46,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("delete")]
+        [HttpPost("delete")]
         public IActionResult Delete(TEntity item)
         {
             var result = _Service.Delete(item);

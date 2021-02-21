@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.AutoFac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -17,8 +19,10 @@ namespace Business.Concrete
             _IRentalDal = ıRentalDal;
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
+            //IS THIS VALIDATION CODE OR BUSINESS CODE ?
             //if there is any rental entry for the car we want that is not returned
             if (_IRentalDal.GetAll
                 (r=>r.CarId == rental.CarId && r.ReturnDate==null).Count>0)
@@ -58,6 +62,8 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>
                 (_IRentalDal.Get(p => p.Id == id));
         }
+
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Update(Rental rental)
         {
             _IRentalDal.Update(rental);

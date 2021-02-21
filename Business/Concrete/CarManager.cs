@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.AutoFac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -36,20 +38,13 @@ namespace Business.Concrete
                 (_ICarDal.GetAll(p => p.ColorId== id));
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                if (car.Description.Length > 2)
-                {
-                    _ICarDal.Add(car);
-                    return new SuccessResult();
-                }
-                else
-                    return new ErrorResult("Description length is shorter than 2");
-            }
-            else
-                return new ErrorResult("Daily price is lower than 0");
+
+            _ICarDal.Add(car);
+            return new SuccessResult();
+
         }
 
         public IResult Delete(Car car)
@@ -58,20 +53,13 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                if (car.Description.Length > 2)
-                {
-                    _ICarDal.Update(car);
-                    return new SuccessResult();
-                }
-                else
-                    return new ErrorResult("Description length is shorter than 2");
-            }
-            else
-                return new ErrorResult("Daily price is lower than 0");
+
+            _ICarDal.Update(car);
+            return new SuccessResult();
+
         }
 
         public IDataResult<Car> GetById(int id)

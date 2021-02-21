@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.AutoFac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -17,6 +19,7 @@ namespace Business.Concrete
             _IColorDal = ıColorDal;
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color brand)
         {
             _IColorDal.Add(brand);
@@ -41,6 +44,8 @@ namespace Business.Concrete
                 (_IColorDal.Get(p => p.Id == id));
 
         }
+
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color brand)
         {
             _IColorDal.Update(brand);
