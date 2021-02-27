@@ -51,3 +51,13 @@ ReturnDate Date,
 Foreign key (CarId) References Cars(Id),
 Foreign key (CustomerId) References Customers(Id)
 )
+
+
+CREATE TABLE [dbo].[CarImages] (
+    [Id]        INT          IDENTITY(1,1) NOT NULL,
+    [CarId]     INT           NOT NULL,
+    [ImagePath] VARCHAR (255) NULL,
+    [Date]      DATE          NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    FOREIGN KEY ([CarId]) REFERENCES [dbo].[Cars] ([Id])
+);

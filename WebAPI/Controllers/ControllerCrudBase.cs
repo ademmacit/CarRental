@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getById")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById([FromBody] int id)
         {
             var result = _Service.GetById(id);
             if (result.Success)
