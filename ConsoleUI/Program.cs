@@ -122,30 +122,30 @@ namespace ConsoleUI
             });
         }
 
-        private static void UserCrud(UserManager userManager)
-        {
-            userManager.Add(new User()
-            {
-                Email = "user1@hotmail.com",
-                FirstName = "adem",
-                LastName = "macit",
-                Password = "pass1"
-            });
-            userManager.Add(new User()
-            {
-                Email = "user2@Gmail.com",
-                FirstName = "emre",
-                LastName = "begit",
-                Password = "pass2"
-            });
-            userManager.Add(new User()
-            {
-                Email = "user3@Gmail.com",
-                FirstName = "ali",
-                LastName = "çalışkan",
-                Password = "pass3"
-            });
-        }
+        //private static void UserCrud(UserManager userManager)
+        //{
+        //    userManager.Add(new User()
+        //    {
+        //        Email = "user1@hotmail.com",
+        //        FirstName = "adem",
+        //        LastName = "macit",
+        //        Password = "pass1"
+        //    });
+        //    userManager.Add(new User()
+        //    {
+        //        Email = "user2@Gmail.com",
+        //        FirstName = "emre",
+        //        LastName = "begit",
+        //        Password = "pass2"
+        //    });
+        //    userManager.Add(new User()
+        //    {
+        //        Email = "user3@Gmail.com",
+        //        FirstName = "ali",
+        //        LastName = "çalışkan",
+        //        Password = "pass3"
+        //    });
+        //}
 
         private static void DisplayTables(CarManager carManager, ColorManager colorManager, BrandManager brandManager)
         {
