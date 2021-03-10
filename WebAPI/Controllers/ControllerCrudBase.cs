@@ -1,5 +1,6 @@
 ﻿using Core.Business;
 using Core.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getAll")]
+        [Authorize(Roles = "Product.List")]
         public IActionResult GetAll()
         {
             var result = _Service.GetAll();
