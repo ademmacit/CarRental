@@ -44,8 +44,6 @@ namespace Business.DependencyResolvers.AutoFac
 
 
 
-            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
-
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()

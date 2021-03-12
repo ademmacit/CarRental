@@ -20,5 +20,7 @@ namespace Business.Constants
         public static string SuccessfulLogin = "Successful login";
         public static string UserAlreadyExists = "User already exists";
         public static string AccessTokenCreated = "Access token created";
+        public static string CarImageLimitExeeded = "Cannot add more than 5 images per car";
+        public static string CarIsAlreadRented = "the car you are looking for is already rented";
     }
 }

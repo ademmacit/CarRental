@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -74,7 +75,7 @@ namespace Business.Concrete
             {
                 return new SuccessResult();
             }
-            return new ErrorResult("Cannot add more than 5 images per car");
+            return new ErrorResult(Messages.CarImageLimitExeeded);
         }
     }
 }

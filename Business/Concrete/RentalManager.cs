@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.AutoFac.Validation;
 using Core.Utilities.Results;
@@ -27,7 +28,7 @@ namespace Business.Concrete
             if (_IRentalDal.GetAll
                 (r=>r.CarId == rental.CarId && r.ReturnDate==null).Count>0)
             {
-                return new ErrorResult("the car you are looking for is already rented");
+                return new ErrorResult(Messages.CarIsAlreadRented); 
             }
             else
             {

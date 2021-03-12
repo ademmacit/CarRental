@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.AutoFac;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.AutoFac.Validation;
 using Core.Utilities.Results;
@@ -34,6 +35,7 @@ namespace Business.Concrete
 
         }
 
+        [SecuredOperation("Brand.GetAll")]
         public IDataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult<List<Brand>>
