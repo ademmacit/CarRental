@@ -13,8 +13,20 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CarsController : ControllerCrudBase<Car, ICarService>
     {
+        ICarService _carService;
+
         public CarsController(ICarService service) : base(service)
         {
+            _carService = service;
+        }
+
+        [HttpGet("getCarDetails")]
+        public IActionResult GetCarDetails()
+        {
+            var result = _carService.GetCarDetails();
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
         }
     }
 }

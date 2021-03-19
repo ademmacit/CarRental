@@ -7,6 +7,7 @@ using Core.Aspects.AutoFac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -72,6 +73,13 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Rental>
                 (_IRentalDal.Get(p => p.Id == id));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>
+                (_IRentalDal.GetRentalDetails());
         }
 
         [SecuredOperation("admin")]
