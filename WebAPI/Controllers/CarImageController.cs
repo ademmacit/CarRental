@@ -44,15 +44,15 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetByCarId")]
-        public IActionResult GetByCarId([FromBody] int carId)
+        public IActionResult GetByCarId( int carId)
         {
             var result = _CarImageService.GetImagesByCarId(carId);
             if (result.Data[0].Id == 0)
                 result.Data[0].ImagePath = 
-                    _environment.WebRootPath + "\\carImages\\" + "default.jpg";
+                    "\\carImages\\" + "default.jpg";
 
             if (result.Success)
-                Ok(result);
+                return Ok(result);
             return BadRequest(result);
         }
 
@@ -64,7 +64,7 @@ namespace WebAPI.Controllers
                 return BadRequest("wrong file format");
 
             string newImageName = Guid.NewGuid().ToString() + extension;
-            string folderPath = _environment.WebRootPath + "\\carImages\\";
+            string folderPath =  "\\carImages\\";
 
             CarImage carImage = new CarImage()
             {
