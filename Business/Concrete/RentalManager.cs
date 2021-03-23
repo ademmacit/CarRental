@@ -4,6 +4,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.AutoFac.Caching;
 using Core.Aspects.AutoFac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -23,23 +24,20 @@ namespace Business.Concrete
             _IRentalDal = ıRentalDal;
         }
 
-        [SecuredOperation("admin")]
         [ValidationAspect(typeof(RentalValidator))]
         [CacheRemoveAspect("IRentalService.Get")]
         public IResult Add(Rental rental)
         {
-            //IS THIS VALIDATION CODE OR BUSINESS CODE ?
-            //if there is any rental entry for the car we want that is not returned
-            if (_IRentalDal.GetAll
-                (r=>r.CarId == rental.CarId && r.ReturnDate==null).Count>0)
-            {
-                return new ErrorResult(Messages.CarIsAlreadRented); 
-            }
-            else
-            {
-                _IRentalDal.Add(rental);
-                return new SuccessResult();
-            }
+
+            IResult result = BusinessRules.Run(CheckIfReturnDateForCarExists(rental),
+                CheckIfCarIsReturnedBeforeRentalRent(rental));
+
+            if (!result.Success)
+                return result;
+
+
+            _IRentalDal.Add(rental);
+            return new SuccessResult();
 
         }
 
@@ -88,6 +86,27 @@ namespace Business.Concrete
         public IResult Update(Rental rental)
         {
             _IRentalDal.Update(rental);
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfReturnDateForCarExists(Rental rental)
+        {
+            if (_IRentalDal.GetAll
+              (r => r.CarId == rental.CarId && r.ReturnDate == null).Count > 0)
+            {
+                return new ErrorResult(Messages.CarIsAlreadRented);
+            }
+            return new SuccessResult(); 
+        }
+
+        private IResult CheckIfCarIsReturnedBeforeRentalRent(Rental rental)
+        {
+            if (_IRentalDal.GetAll
+             (r => r.CarId == rental.CarId &&
+             r.ReturnDate > (DateTime?)rental.RentDate).Count > 0)
+            {
+                return new ErrorResult(Messages.CarIsAlreadRented);
+            }
             return new SuccessResult();
         }
 
