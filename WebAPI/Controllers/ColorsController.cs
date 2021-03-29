@@ -11,10 +11,59 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ColorsController : ControllerCrudBase<Color, IColorService>
+    public class ColorsController : ControllerBase
     {
-        public ColorsController(IColorService service) : base(service)
+        IColorService _colorService;
+
+        public ColorsController(IColorService service)
         {
+            _colorService = service;
         }
+
+        [HttpGet("getAll")]
+        public IActionResult GetAll()
+        {
+            var result = _colorService.GetAll();
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpGet("getById")]
+        public IActionResult GetById([FromBody] int id)
+        {
+            var result = _colorService.GetById(id);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpPost("add")]
+        public IActionResult Add(Color item)
+        {
+            var result = _colorService.Add(item);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpPost("delete")]
+        public IActionResult Delete(Color item)
+        {
+            var result = _colorService.Delete(item);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpGet("update")]
+        public IActionResult Update(Color item)
+        {
+            var result = _colorService.Update(item);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
     }
 }

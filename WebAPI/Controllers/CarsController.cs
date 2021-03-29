@@ -11,14 +11,61 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarsController : ControllerCrudBase<Car, ICarService>
+    public class CarsController : ControllerBase
     {
         ICarService _carService;
 
-        public CarsController(ICarService service) : base(service)
+        public CarsController(ICarService service)
         {
             _carService = service;
         }
+
+
+        [HttpGet("getAll")]
+        public IActionResult GetAll()
+        {
+            var result = _carService.GetAll();
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpGet("getById")]
+        public IActionResult GetById([FromBody] int id)
+        {
+            var result = _carService.GetById(id);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpPost("add")]
+        public IActionResult Add(Car item)
+        {
+            var result = _carService.Add(item);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpPost("delete")]
+        public IActionResult Delete(Car item)
+        {
+            var result = _carService.Delete(item);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpGet("update")]
+        public IActionResult Update(Car item)
+        {
+            var result = _carService.Update(item);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
 
         [HttpGet("getCarDetails")]
         public IActionResult GetCarDetails()
