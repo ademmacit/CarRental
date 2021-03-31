@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getById")]
-        public IActionResult GetById([FromBody] int id)
+        public IActionResult GetById( int id)
         {
             var result = _colorService.GetById(id);
             if (result.Success)
@@ -56,7 +56,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("update")]
+        [HttpPost("update")]
         public IActionResult Update(Color item)
         {
             var result = _colorService.Update(item);
