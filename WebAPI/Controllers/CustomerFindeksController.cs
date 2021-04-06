@@ -11,69 +11,70 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentalsController : ControllerBase
+    public class CustomerFindeksController : ControllerBase
     {
-        IRentalService _rentalService;
-        public RentalsController(IRentalService service)
+
+        ICustomerFindeksService _CustomerFindeksService;
+
+        public CustomerFindeksController(ICustomerFindeksService service)
         {
-            _rentalService = service;
+            _CustomerFindeksService = service;
         }
-
-
 
         [HttpGet("getAll")]
         public IActionResult GetAll()
         {
-            var result = _rentalService.GetAll();
+            var result = _CustomerFindeksService.GetAll();
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
         }
 
         [HttpGet("getById")]
-        public IActionResult GetById( int id)
+        public IActionResult GetById(int id)
         {
-            var result = _rentalService.GetById(id);
+            var result = _CustomerFindeksService.GetById(id);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpGet("getByCustomerId")]
+        public IActionResult GetByCustomerId(int id)
+        {
+            var result = _CustomerFindeksService.GetByCustomerId(id);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Rental item)
+        public IActionResult Add(CustomerFindeks item)
         {
-            var result = _rentalService.Add(item);
+            var result = _CustomerFindeksService.Add(item);
             if (result.Success)
                 return Ok(result);
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Rental item)
+        public IActionResult Delete(CustomerFindeks item)
         {
-            var result = _rentalService.Delete(item);
+            var result = _CustomerFindeksService.Delete(item);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
         }
 
         [HttpGet("update")]
-        public IActionResult Update(Rental item)
+        public IActionResult Update(CustomerFindeks item)
         {
-            var result = _rentalService.Update(item);
+            var result = _CustomerFindeksService.Update(item);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
         }
 
 
-        [HttpGet("getRentalDetails")]
-        public IActionResult GetCarDetails()
-        {
-            var result = _rentalService.GetRentalDetails();
-            if (result.Success)
-                return Ok(result);
-            return BadRequest(result);
-        }
     }
 }

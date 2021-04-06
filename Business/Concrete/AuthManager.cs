@@ -58,14 +58,26 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
-            return new SuccessResult();
+            return new SuccessResult(Messages.UserNotFound);
         }
+
+        public IDataResult<UserInfoDto> GetUserInfoByMail(string email)
+        {
+            return new SuccessDataResult<UserInfoDto>(_userService.GetUserInfoByMail(email));
+        }
+
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
+        }
+
+        public IResult UpdateUserInfo(UserInfoDto userInfo)
+        {
+            _userService.UpdateUserInfo(userInfo);
+            return new SuccessResult();
         }
     }
 }

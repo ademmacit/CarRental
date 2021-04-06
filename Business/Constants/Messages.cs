@@ -22,5 +22,7 @@ namespace Business.Constants
         public static string AccessTokenCreated = "Access token created";
         public static string CarImageLimitExeeded = "Cannot add more than 5 images per car";
         public static string CarIsAlreadRented = "the car you are looking for is already rented";
+
+        public static string LowFindeksPoints = "the car you are looking for has higher findeks than customer";
     }
 }

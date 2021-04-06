@@ -11,66 +11,65 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentalsController : ControllerBase
+    public class CreditCardController : ControllerBase
     {
-        IRentalService _rentalService;
-        public RentalsController(IRentalService service)
+
+        ICreditCardService _CreditCardService;
+
+        public CreditCardController(ICreditCardService service)
         {
-            _rentalService = service;
+            _CreditCardService = service;
         }
-
-
 
         [HttpGet("getAll")]
         public IActionResult GetAll()
         {
-            var result = _rentalService.GetAll();
+            var result = _CreditCardService.GetAll();
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
         }
 
         [HttpGet("getById")]
-        public IActionResult GetById( int id)
+        public IActionResult GetById(int id)
         {
-            var result = _rentalService.GetById(id);
+            var result = _CreditCardService.GetById(id);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpGet("getByUserId")]
+        public IActionResult getByUserId(int userId)
+        {
+            var result = _CreditCardService.GetByUserId(userId);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Rental item)
+        public IActionResult Add(CreditCard item)
         {
-            var result = _rentalService.Add(item);
+            var result = _CreditCardService.Add(item);
             if (result.Success)
                 return Ok(result);
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Rental item)
+        public IActionResult Delete(CreditCard item)
         {
-            var result = _rentalService.Delete(item);
+            var result = _CreditCardService.Delete(item);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
         }
 
-        [HttpGet("update")]
-        public IActionResult Update(Rental item)
+        [HttpPost("update")]
+        public IActionResult Update(CreditCard item)
         {
-            var result = _rentalService.Update(item);
-            if (result.Success)
-                return Ok(result);
-            return BadRequest(result);
-        }
-
-
-        [HttpGet("getRentalDetails")]
-        public IActionResult GetCarDetails()
-        {
-            var result = _rentalService.GetRentalDetails();
+            var result = _CreditCardService.Update(item);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);

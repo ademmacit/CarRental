@@ -18,10 +18,14 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         IRentalDal _IRentalDal;
+        ICustomerFindeksDal _ICustomerFindeksDal;
+        ICarDal _ICarDal;
 
-        public RentalManager(IRentalDal ıRentalDal)
+        public RentalManager(IRentalDal rentalDal, ICustomerFindeksDal customerFindeksDal, ICarDal carDal)
         {
-            _IRentalDal = ıRentalDal;
+            _IRentalDal = rentalDal;
+            _ICustomerFindeksDal = customerFindeksDal;
+            _ICarDal = carDal;
         }
 
         [ValidationAspect(typeof(RentalValidator))]
@@ -30,7 +34,8 @@ namespace Business.Concrete
         {
 
             IResult result = BusinessRules.Run(CheckIfReturnDateForCarExists(rental),
-                CheckIfCarIsReturnedBeforeRentalRent(rental));
+                CheckIfCarIsReturnedBeforeRentalRent(rental),
+                CheckIfCustomerFindeksIsEnough(rental));
 
             if (!result.Success)
                 return result;
@@ -108,6 +113,20 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.CarIsAlreadRented);
             }
             return new SuccessResult();
+        }
+
+        // Because findeks points come from a mock server we can 
+        //use CustomerFindeksManager here to get the value.
+        //But in a real scenario this function would use another api to get findeks
+        private IResult CheckIfCustomerFindeksIsEnough(Rental rental)
+        {
+            CustomerFindeks customerFindeks = _ICustomerFindeksDal.Get(c => c.CustomerId == rental.CustomerId);
+            Car car = _ICarDal.Get(c => c.Id == rental.CarId);
+            if (customerFindeks.Findeks>=car.Findeks)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult(Messages.LowFindeksPoints);
         }
 
     }
