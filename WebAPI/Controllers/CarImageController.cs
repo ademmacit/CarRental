@@ -62,32 +62,39 @@ namespace WebAPI.Controllers
             string extension = Path.GetExtension(image.FileName);
             if (extension != ".jpeg" && extension != ".png")
                 return BadRequest("wrong file format");
-
             string newImageName = Guid.NewGuid().ToString() + extension;
-            string folderPath =  "\\carImages\\";
+
+            string folderPath = Path.Combine(_environment.WebRootPath, "carImages");
+            string imagePathForDB = Path.Combine("carImages", newImageName);
+            string imagePathForCreatingFile = Path.Combine(_environment.WebRootPath, imagePathForDB);
+
 
             CarImage carImage = new CarImage()
             {
                 CarId = carId,
-                ImagePath = folderPath + newImageName
+                ImagePath = imagePathForDB
             };
 
             var result = _CarImageService.Add(carImage);
 
             if (result.Success)
             {
+
                 if (!Directory.Exists(folderPath))
                     Directory.CreateDirectory(folderPath);
 
-                using (FileStream fileStream = System.IO.File.Create(carImage.ImagePath))
+                
+
+                using (FileStream fileStream = System.IO.File.Create(imagePathForCreatingFile))
                 {
                     image.CopyTo(fileStream);
-                    fileStream.Flush();
                 }
                 return Ok(result);
             }
             return BadRequest(result);
         }
+
+
 
         [HttpPost("delete")]
         public IActionResult Delete(CarImage carImage)

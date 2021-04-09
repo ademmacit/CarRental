@@ -21,7 +21,7 @@ namespace Business.Concrete
             _CarImageDal = carImageDal;
         }
 
-        [SecuredOperation("admin")]
+        //[SecuredOperation("admin")]
         [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(CarImage item)
         {
@@ -36,7 +36,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        [SecuredOperation("admin")]
+        //[SecuredOperation("admin")]
         [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage item)
         {
@@ -71,7 +71,7 @@ namespace Business.Concrete
                 (_CarImageDal.Get(c => c.Id == id));
         }
 
-        [SecuredOperation("admin")]
+        //[SecuredOperation("admin")]
         [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(CarImage item)
         {
